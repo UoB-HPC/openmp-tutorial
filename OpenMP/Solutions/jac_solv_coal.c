@@ -121,17 +121,21 @@ int main(int argc, char **argv)
      //  
      // test convergence
      //
+     conv = 0.0;
+     #pragma omp target update to(conv)
+
      #pragma omp target
      {
-        conv = 0.0;
         #pragma omp teams distribute parallel for simd private(i,tmp) reduction(+:conv)
         for (i=0; i<Ndim; i++){
           tmp  = xnew[i]-xold[i];
           conv += tmp*tmp;
       }
-      conv = sqrt((double)conv);
      }
+
      #pragma omp target update from(conv)
+     conv = sqrt((double)conv);
+
 #ifdef DEBUG
      printf(" conv = %f \n",(float)conv);
 #endif
