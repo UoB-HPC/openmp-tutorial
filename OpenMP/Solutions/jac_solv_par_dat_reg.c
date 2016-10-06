@@ -98,7 +98,7 @@ int main(int argc, char **argv)
 //
    conv  = LARGE;
    iters = 0;
-   #pragma omp target data map(tofrom:x1[0:Ndim],x2[0:Ndim],conv) \
+   #pragma omp target data map(tofrom:x1[0:Ndim],x2[0:Ndim]) \
                         map(to:A[0:Ndim*Ndim], Ndim, b[0:Ndim])
    while((conv > TOLERANCE) && (iters<MAX_ITERS))
    {
@@ -123,9 +123,8 @@ int main(int argc, char **argv)
      // test convergence
      //
      conv = 0.0;
-     #pragma omp target update to(conv)
 
-     #pragma omp target
+     #pragma omp target map(tofrom: conv)
      {
         #pragma omp teams distribute parallel for simd private(i,tmp) reduction(+:conv)
         for (i=0; i<Ndim; i++){
@@ -133,7 +132,6 @@ int main(int argc, char **argv)
           conv += tmp*tmp;
       }
      }
-     #pragma omp target update from(conv)
      conv = sqrt((double)conv);
 
 #ifdef DEBUG
