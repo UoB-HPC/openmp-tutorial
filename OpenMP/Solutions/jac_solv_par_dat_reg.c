@@ -123,7 +123,7 @@ int main(int argc, char **argv)
      // test convergence
      //
      conv = 0.0;
-     #pragma omp update to(conv)
+     #pragma omp target update to(conv)
 
      #pragma omp target
      {
