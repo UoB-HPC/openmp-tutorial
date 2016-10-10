@@ -2,7 +2,7 @@
 # copy to make.def
 CC          = g++
 CLINKER     = $(CC)
-OPTFLAGS    = -fopenmp -O3 
+OPTFLAGS    = -fopenmp -O3
 LIBS        = -lm
 PRE         = ./
 

@@ -3,8 +3,8 @@
 **
 **  PURPOSE: This program will explore use of a jacobi iterative
 **           method to solve a system of linear equations (Ax= b).
-** 
-**           Here is the basic idea behind the method.   Rewrite 
+**
+**           Here is the basic idea behind the method.   Rewrite
 **           the matrix A as a Lower Triangular (L), upper triangular
 **           (U) and diagonal matrix (D)
 **
@@ -35,7 +35,7 @@
 #include <stdlib.h>
 #include<math.h>
 #include "mm_utils.h"   //a library of basic matrix utilities functions
-                        //and some key constants used in this program 
+                        //and some key constants used in this program
                         //(such as TYPE)
 
 #define TOLERANCE 0.001
@@ -44,7 +44,7 @@
 #define LARGE     1000000.0
 
 //#define DEBUG    1     // output a small subset of intermediate values
-//#define VERBOSE  1     
+//#define VERBOSE  1
 
 int main(int argc, char **argv)
 {
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
    int i,j, iters;
    double start_time, elapsed_time;
    TYPE conv, tmp, err, chksum;
-   TYPE *A, *b, *x1, *x2, *xnew, *xold, *xtmp; 
+   TYPE *A, *b, *x1, *x2, *xnew, *xold, *xtmp;
 
 // set matrix dimensions and allocate memory for matrices
    if(argc ==2){
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
    }
 
    start_time = omp_get_wtime();
-// 
+//
 // jacobi iterative solver
 //
    conv  = LARGE;
@@ -108,7 +108,7 @@ int main(int argc, char **argv)
 
      #pragma omp target map(tofrom:xnew[0:Ndim],xold[0:Ndim]) \
                         map(to:A[0:Ndim*Ndim], Ndim, b[0:Ndim])
-       #pragma omp teams distribute parallel for simd private(j) 
+       #pragma omp teams distribute parallel for simd private(j)
        for (i=0; i<Ndim; i++){
            xnew[i] = (TYPE) 0.0;
            for (j=0; j<Ndim;j++){
@@ -118,11 +118,11 @@ int main(int argc, char **argv)
            xnew[i] = (b[i]-xnew[i])/A[i*Ndim+i];
 
        }
-     //  
+     //
      // test convergence
      //
      conv = 0.0;
-     #pragma omp target map(to:xnew[0:Ndim],xold[0:Ndim]) map(to:Ndim) map(tofrom:conv) 
+     #pragma omp target map(to:xnew[0:Ndim],xold[0:Ndim]) map(to:Ndim) map(tofrom:conv)
         #pragma omp teams distribute parallel for simd private(tmp) reduction(+:conv)
         for (i=0; i<Ndim; i++){
             tmp  = xnew[i]-xold[i];
@@ -137,10 +137,10 @@ int main(int argc, char **argv)
    elapsed_time = omp_get_wtime() - start_time;
    printf(" Convergence = %g with %d iterations and %f seconds\n",
          (float)conv, iters, (float)elapsed_time);
-   
+
    //
    // test answer by multiplying my computed value of x by
-   // the input A matrix and comparing the result with the 
+   // the input A matrix and comparing the result with the
    // input b vector.
    //
    err    = (TYPE) 0.0;

@@ -11,20 +11,20 @@ EXES=pi_spmd_final$(EXE) pi_loop$(EXE) pi_targ$(EXE) \
      # jac_solv_parfor$(EXE) jac_solv_par_for$(EXE) \
      phi_test$(EXE) scope_play$(EXE)
 
-JAC_PAR_FOR_OBJS  = jac_solv_par_for.$(OBJ) mm_utils.$(OBJ) 
+JAC_PAR_FOR_OBJS  = jac_solv_par_for.$(OBJ) mm_utils.$(OBJ)
 
-JAC_PARFOR_OBJS   = jac_solv_parfor.$(OBJ) mm_utils.$(OBJ) 
+JAC_PARFOR_OBJS   = jac_solv_parfor.$(OBJ) mm_utils.$(OBJ)
 
-JAC_COAL_OBJS  = jac_solv_coal.$(OBJ) mm_utils.$(OBJ) 
+JAC_COAL_OBJS  = jac_solv_coal.$(OBJ) mm_utils.$(OBJ)
 
-JAC_NOBR_OBJS  = jac_solv_nobr.$(OBJ) mm_utils.$(OBJ) 
+JAC_NOBR_OBJS  = jac_solv_nobr.$(OBJ) mm_utils.$(OBJ)
 
-JAC_DAT_REG_OBJS  = jac_solv_par_dat_reg.$(OBJ) mm_utils.$(OBJ) 
+JAC_DAT_REG_OBJS  = jac_solv_par_dat_reg.$(OBJ) mm_utils.$(OBJ)
 
-JAC_DAT_TARG_OBJS = jac_solv_par_target.$(OBJ) mm_utils.$(OBJ) 
+JAC_DAT_TARG_OBJS = jac_solv_par_target.$(OBJ) mm_utils.$(OBJ)
 
 all: $(EXES)
- 
+
 jac_solv_par_for$(EXE): $(JAC_PAR_FOR_OBJS) mm_utils.h
 	$(CLINKER) $(CFLAGS) -o jac_solv_par_for$(EXE) $(JAC_PAR_FOR_OBJS) $(LIBS)
 
@@ -43,19 +43,19 @@ jac_solv_dat_reg$(EXE): $(JAC_DAT_REG_OBJS) mm_utils.h
 jac_solv_targ$(EXE): $(JAC_DAT_TARG_OBJS) mm_utils.h
 	$(CLINKER) $(CFLAGS) -o jac_solv_targ$(EXE) $(JAC_DAT_TARG_OBJS) $(LIBS)
 
-pi_spmd_final$(EXE): pi_spmd_final.$(OBJ) 
+pi_spmd_final$(EXE): pi_spmd_final.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o pi_spmd_final$(EXE) pi_spmd_final.$(OBJ) $(LIBS)
 
-pi_loop$(EXE): pi_loop.$(OBJ) 
+pi_loop$(EXE): pi_loop.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o pi_loop$(EXE) pi_loop.$(OBJ) $(LIBS)
 
-pi_targ$(EXE): pi_targ.$(OBJ) 
+pi_targ$(EXE): pi_targ.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o pi_targ$(EXE) pi_targ.$(OBJ) $(LIBS)
 
-scope_play$(EXE): scope_play.$(OBJ) 
+scope_play$(EXE): scope_play.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o scope_play$(EXE) scope_play.$(OBJ) $(LIBS)
 
-phi_test$(EXE): phi_test.$(OBJ) 
+phi_test$(EXE): phi_test.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o phi_test$(EXE) phi_test.$(OBJ) $(LIBS)
 
 test: $(EXES)

@@ -11,20 +11,20 @@
 
 double errsqr (int Ndim, int Mdim, TYPE* C, TYPE* Cref);
 
-void mm_clear (int Ndim, int Mdim, TYPE* C); 
+void mm_clear (int Ndim, int Mdim, TYPE* C);
 
-void mm_print (int Ndim, int Mdim, TYPE* C); 
+void mm_print (int Ndim, int Mdim, TYPE* C);
 
-void init_const_matrix (int Ndim,  int Mdim,  int Pdim, 
+void init_const_matrix (int Ndim,  int Mdim,  int Pdim,
                   TYPE *A, TYPE* B, TYPE* C);
 
-void init_progression_matrix (int Ndim,  int Mdim,  int Pdim, 
+void init_progression_matrix (int Ndim,  int Mdim,  int Pdim,
                   TYPE *A, TYPE* B, TYPE* C);
- 
-void output_results(int Ndim, int Mdim, int Pdim, 
+
+void output_results(int Ndim, int Mdim, int Pdim,
                   int nerr, double ave_t, double min_t, double max_t);
 
-void mm_tst_cases(int NTRIALS, int Ndim, int Mdim, int Pdim, TYPE* A, TYPE* B, TYPE* C, 
+void mm_tst_cases(int NTRIALS, int Ndim, int Mdim, int Pdim, TYPE* A, TYPE* B, TYPE* C,
               void (*mm_func)(int, int, int, TYPE *, TYPE *, TYPE *));
 
 void init_diag_dom_matrix(int Ndim,  TYPE *A);

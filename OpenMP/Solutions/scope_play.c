@@ -1,10 +1,10 @@
 /*
 
-This is a simple program to play around with the scope 
+This is a simple program to play around with the scope
 of variables in OpenMP programs that include target
-directives. 
+directives.
 
-History: Written by Tim Mattson, 11/2015. 
+History: Written by Tim Mattson, 11/2015.
 
 */
 
@@ -25,7 +25,7 @@ int main()
   int num_devices = omp_get_num_devices();
   printf(" There are %d devices.\n ",num_devices);
   if(num_devices == 0) printf(" ... if there was a device...\n");
-  #pragma omp target map(to:j) map(tofrom:k) 
+  #pragma omp target map(to:j) map(tofrom:k)
   {
      printf(" Inside target ifs is %d.  It should be 42\n",  ifs);
      printf(" Inside target i   is %d.  It should be undefined \n",  i);

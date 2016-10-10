@@ -4,16 +4,16 @@ NAME:   PI SPMD final version without false sharing
 
 This program will numerically compute the integral of
 
-                  4/(1+x*x) 
-				  
-from 0 to 1.  The value of this integral is pi -- which 
+                  4/(1+x*x)
+
+from 0 to 1.  The value of this integral is pi -- which
 is great since it gives us an easy way to check the answer.
 
-The program was parallelized using OpenMP and an SPMD 
-algorithm.  The following OpenMP specific lines were 
-added: 
+The program was parallelized using OpenMP and an SPMD
+algorithm.  The following OpenMP specific lines were
+added:
 
-(1) A line to include omp.h -- the include file that 
+(1) A line to include omp.h -- the include file that
 contains OpenMP's function prototypes and constants.
 
 (2) A pragma that tells OpenMP to create a team of threads
@@ -27,7 +27,7 @@ returning the total number of threads.
 of threads.
 
 (5) A cyclic distribution of the loop by changing loop control
-expressions to run from the thread ID incremented by the number 
+expressions to run from the thread ID incremented by the number
 of threads.  Local sums accumlated into sum[id].
 
 (6) A barrier to make sure everyone's done.
@@ -81,12 +81,12 @@ for(j=1;j<=MAX_THREADS ;j++){
 #pragma omp critical
 		  full_sum += partial_sum;
 }
-      
+
 	  pi = step * full_sum;
 	  run_time = omp_get_wtime() - start_time;
 	  printf("\n pi is %f in %f seconds %d threds \n ",pi,run_time,j);
 }
-}	  
+}
 
 
 

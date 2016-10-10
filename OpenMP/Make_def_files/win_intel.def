@@ -2,11 +2,11 @@
 # copy to make.def
 CC          = icl
 CLINKER     = $(CC)
-OPTFLAGS    = /Qopenmp  /Qstd=c99 
+OPTFLAGS    = /Qopenmp  /Qstd=c99
 LIBS        =
 PRE         =
 
-CFLAGS	  = $(OPTFLAGS) 
+CFLAGS	  = $(OPTFLAGS)
 
 OBJ=obj
 EXE=.exe

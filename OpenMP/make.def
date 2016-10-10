@@ -3,7 +3,7 @@
 CC          = cc
 CLINKER     = $(CC)
 OPTFLAGS    = -O3
-LIBS        = 
+LIBS        =
 PRE         = ./
 
 CFLAGS	  = $(OPTFLAGS)

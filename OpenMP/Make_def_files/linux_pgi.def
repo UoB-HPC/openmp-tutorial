@@ -1,10 +1,10 @@
 CC          = pgcc
 CLINKER     = $(CC)
-OPTFLAGS    = -mp -fast 
+OPTFLAGS    = -mp -fast
 LIBS        =
 
-CFLAGS	  = $(OPTFLAGS) 
+CFLAGS	  = $(OPTFLAGS)
 
 OBJ=o
 EXE=.exe
-RM=rm 
+RM=rm

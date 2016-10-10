@@ -8,17 +8,17 @@ include make.def
 
 EXES= pi$(EXE) jac_solv$(EXE) scope_play$(EXE)
 
-JAC_OBJS  = jac_solv.$(OBJ) mm_utils.$(OBJ) 
+JAC_OBJS  = jac_solv.$(OBJ) mm_utils.$(OBJ)
 
 all: $(EXES)
 
 jac_solv$(EXE): $(JAC_OBJS) mm_utils.h
 	$(CLINKER) $(CFLAGS) -o jac_solv$(EXE) $(JAC_OBJS) $(LIBS)
 
-pi$(EXE): pi.$(OBJ) 
+pi$(EXE): pi.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o pi pi.$(OBJ) $(LIBS)
 
-scope_play$(EXE): scope_play.$(OBJ) 
+scope_play$(EXE): scope_play.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o scope_play scope_play.$(OBJ) $(LIBS)
 
 test: $(EXES)
