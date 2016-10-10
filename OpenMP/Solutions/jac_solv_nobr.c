@@ -109,7 +109,7 @@ int main(int argc, char **argv)
      xold = iters % 2 ? x1 : x2;
 
      #pragma omp target 
-       #pragma omp teams distribute parallel for simd private(i,j) 
+       #pragma omp teams distribute parallel for simd private(j) 
        for (i=0; i<Ndim; i++){
            xnew[i] = (TYPE) 0.0;
            for (j=0; j<Ndim;j++){
@@ -125,7 +125,7 @@ int main(int argc, char **argv)
 
      #pragma omp target map(tofrom: conv)
      {
-        #pragma omp teams distribute parallel for simd private(i,tmp) reduction(+:conv)
+        #pragma omp teams distribute parallel for simd private(tmp) reduction(+:conv)
         for (i=0; i<Ndim; i++){
           tmp  = xnew[i]-xold[i];
           conv += tmp*tmp;
