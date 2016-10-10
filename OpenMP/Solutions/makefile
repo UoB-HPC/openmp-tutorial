@@ -7,7 +7,7 @@ include ../make.def
 
 EXES=pi_spmd_final$(EXE) pi_loop$(EXE) pi_targ$(EXE) \
      jac_solv_dat_reg$(EXE) jac_solv_targ$(EXE)  \
-     jac_solv_coal$(EXE)
+     jac_solv_coal$(EXE) jac_solv_nobr$(EXE)
      # jac_solv_parfor$(EXE) jac_solv_par_for$(EXE) \
      phi_test$(EXE) scope_play$(EXE)
 
