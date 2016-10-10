@@ -26,22 +26,22 @@ JAC_DAT_TARG_OBJS = jac_solv_par_target.$(OBJ) mm_utils.$(OBJ)
 all: $(EXES)
 
 jac_solv_par_for$(EXE): $(JAC_PAR_FOR_OBJS) mm_utils.h
-	$(CLINKER) $(CFLAGS) -o jac_solv_par_for$(EXE) $(JAC_PAR_FOR_OBJS) $(LIBS)
+	$(CLINKER) $(OPTFLAGS) -o jac_solv_par_for$(EXE) $(JAC_PAR_FOR_OBJS) $(LIBS)
 
 jac_solv_parfor$(EXE): $(JAC_PARFOR_OBJS) mm_utils.h
-	$(CLINKER) $(CFLAGS) -o jac_solv_parfor$(EXE) $(JAC_PARFOR_OBJS) $(LIBS)
+	$(CLINKER) $(OPTFLAGS) -o jac_solv_parfor$(EXE) $(JAC_PARFOR_OBJS) $(LIBS)
 
 jac_solv_coal$(EXE): $(JAC_COAL_OBJS) mm_utils.h
-	$(CLINKER) $(CFLAGS) -o jac_solv_coal$(EXE) $(JAC_COAL_OBJS) $(LIBS)
+	$(CLINKER) $(OPTFLAGS) -o jac_solv_coal$(EXE) $(JAC_COAL_OBJS) $(LIBS)
 
 jac_solv_nobr$(EXE): $(JAC_NOBR_OBJS) mm_utils.h
-	$(CLINKER) $(CFLAGS) -o jac_solv_nobr$(EXE) $(JAC_NOBR_OBJS) $(LIBS)
+	$(CLINKER) $(OPTFLAGS) -o jac_solv_nobr$(EXE) $(JAC_NOBR_OBJS) $(LIBS)
 
 jac_solv_dat_reg$(EXE): $(JAC_DAT_REG_OBJS) mm_utils.h
-	$(CLINKER) $(CFLAGS) -o jac_solv_dat_reg$(EXE) $(JAC_DAT_REG_OBJS) $(LIBS)
+	$(CLINKER) $(OPTFLAGS) -o jac_solv_dat_reg$(EXE) $(JAC_DAT_REG_OBJS) $(LIBS)
 
 jac_solv_targ$(EXE): $(JAC_DAT_TARG_OBJS) mm_utils.h
-	$(CLINKER) $(CFLAGS) -o jac_solv_targ$(EXE) $(JAC_DAT_TARG_OBJS) $(LIBS)
+	$(CLINKER) $(OPTFLAGS) -o jac_solv_targ$(EXE) $(JAC_DAT_TARG_OBJS) $(LIBS)
 
 pi_spmd_final$(EXE): pi_spmd_final.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o pi_spmd_final$(EXE) pi_spmd_final.$(OBJ) $(LIBS)
