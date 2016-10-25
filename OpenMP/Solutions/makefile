@@ -57,7 +57,7 @@ test: $(EXES)
         done
 
 clean:
-	$(RM) $(EXES) *.$(OBJ)
+	$(RM) $(EXES) *.$(OBJ) *.ptx *.cub
 
 jac_solv_par_dat_reg.$(OBJ): mm_utils.h
 jac_solv_par_for.$(OBJ): mm_utils.h

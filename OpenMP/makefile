@@ -24,7 +24,7 @@ test: $(EXES)
         done
 
 clean:
-	$(RM) $(EXES) *.$(OBJ)
+	$(RM) $(EXES) *.$(OBJ) *.ptx *.cub
 
 jac_solv.$(OBJ) : mm_utils.h
 
