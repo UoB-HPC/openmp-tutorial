@@ -1,0 +1,10 @@
+#PBS -q gpu_nodes
+#PBS -V
+#PBS -joe
+#PBS -lnodes=1
+#PBS -lwalltime=00:02:00
+#PBS -N jac_solv_dat_reg
+
+cd $PBS_O_WORKDIR
+aprun ./jac_solv_dat_reg
+

@@ -1,0 +1,10 @@
+#PBS -q gpu_nodes
+#PBS -V
+#PBS -joe
+#PBS -lnodes=1:ppn=4
+#PBS -lwalltime=00:02:00
+#PBS -N pi_loop
+
+cd $PBS_O_WORKDIR
+OMP_NUM_THREADS=4 aprun -d 4 ./pi_loop
+
