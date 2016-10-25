@@ -1,0 +1,15 @@
+*.o
+*.ptx
+*.cub
+
+*.o*
+
+jac_solv
+pi
+jac_solv_coal
+jac_solv_dat_reg
+jac_solv_nobr
+jac_solv_targ
+pi_loop
+pi_spmd_final
+
