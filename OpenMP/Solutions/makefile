@@ -9,7 +9,7 @@ EXES=pi_spmd_final$(EXE) pi_loop$(EXE) pi_targ$(EXE) \
      jac_solv_dat_reg$(EXE) jac_solv_targ$(EXE)  \
      jac_solv_coal$(EXE) jac_solv_nobr$(EXE)
      # jac_solv_parfor$(EXE) jac_solv_par_for$(EXE) \
-     phi_test$(EXE) scope_play$(EXE)
+     phi_test$(EXE)
 
 JAC_PAR_FOR_OBJS  = jac_solv_par_for.$(OBJ) mm_utils.$(OBJ)
 
@@ -51,9 +51,6 @@ pi_loop$(EXE): pi_loop.$(OBJ)
 
 pi_targ$(EXE): pi_targ.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o pi_targ$(EXE) pi_targ.$(OBJ) $(LIBS)
-
-scope_play$(EXE): scope_play.$(OBJ)
-	$(CLINKER) $(OPTFLAGS) -o scope_play$(EXE) scope_play.$(OBJ) $(LIBS)
 
 phi_test$(EXE): phi_test.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o phi_test$(EXE) phi_test.$(OBJ) $(LIBS)
