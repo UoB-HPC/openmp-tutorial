@@ -10,4 +10,4 @@ CFLAGS	  = $(OPTFLAGS)
 
 OBJ=o
 EXE=
-RM=rm
+RM=rm -f
