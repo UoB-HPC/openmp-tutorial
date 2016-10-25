@@ -5,7 +5,7 @@
 #
 include ../make.def
 
-EXES=pi_spmd_final$(EXE) pi_loop$(EXE) pi_targ$(EXE) \
+EXES=pi_spmd_final$(EXE) pi_loop$(EXE) \
      jac_solv_dat_reg$(EXE) jac_solv_targ$(EXE)  \
      jac_solv_coal$(EXE) jac_solv_nobr$(EXE)
      # jac_solv_parfor$(EXE) jac_solv_par_for$(EXE)
@@ -47,9 +47,6 @@ pi_spmd_final$(EXE): pi_spmd_final.$(OBJ)
 
 pi_loop$(EXE): pi_loop.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o pi_loop$(EXE) pi_loop.$(OBJ) $(LIBS)
-
-pi_targ$(EXE): pi_targ.$(OBJ)
-	$(CLINKER) $(OPTFLAGS) -o pi_targ$(EXE) pi_targ.$(OBJ) $(LIBS)
 
 test: $(EXES)
 	for i in $(EXES); do \
