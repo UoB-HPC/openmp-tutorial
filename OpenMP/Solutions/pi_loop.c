@@ -32,14 +32,14 @@ History: Written by Tim Mattson, 11/99.
 static long num_steps = 100000000;
 double step;
 int main() {
-  int i;
+  int i, j;
   double x, pi, sum = 0.0;
   double start_time, run_time;
 
   step = 1.0 / (double)num_steps;
-  for (i = 1; i <= 4; i++) {
+  for (j = 1; j <= 4; j++) {
     sum = 0.0;
-    omp_set_num_threads(i);
+    omp_set_num_threads(j);
     start_time = omp_get_wtime();
 #pragma omp parallel
     {
