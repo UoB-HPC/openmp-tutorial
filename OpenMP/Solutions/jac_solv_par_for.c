@@ -104,9 +104,9 @@ int main(int argc, char **argv) {
     while ((conv > TOLERANCE * TOLERANCE) && (iters < MAX_ITERS)) {
 #pragma omp single
       {
-        xtmp = xnew; // don't copy arrays.
-        xnew = xold; // just swap pointers.
-        xold = xtmp;
+        // alternate vectors
+        xnew = iters%2 ? x2 : x1;
+        xold = iters%2 ? x1 : x2;
       }
 #ifdef DEBUG
       printf("thread %d, iters=%d conv=%f\n", omp_get_thread_num(), iters,

@@ -98,9 +98,9 @@ int main(int argc, char **argv) {
   xold = x2;
   while ((conv > TOLERANCE) && (iters < MAX_ITERS)) {
     iters++;
-    xtmp = xnew; // don't copy arrays.
-    xnew = xold; // just swap pointers.
-    xold = xtmp;
+    // alternate vectors
+    xnew = iters%2 ? x2 : x1;
+    xold = iters%2 ? x1 : x2;
 
 #pragma omp target map(tofrom : xnew[0 : Ndim], xold[0 : Ndim])                \
                            map(to : A[0 : Ndim *Ndim], Ndim, b[0 : Ndim])

@@ -102,9 +102,9 @@ int main(int argc, char **argv) {
       {
         iters++;
         conv = 0.0;
-        xtmp = xnew; // don't copy arrays.
-        xnew = xold; // just swap pointers.
-        xold = xtmp;
+        // alternate vectors
+        xnew = iters%2 ? x2 : x1;
+        xold = iters%2 ? x1 : x2;
       }
 
 #pragma omp parallel for private(i, j)
