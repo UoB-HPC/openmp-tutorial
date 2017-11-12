@@ -7,4 +7,4 @@
 
 cd $PBS_O_WORKDIR
 
-OMP_NUM_THREADS=4 ./vadd
+./vadd
