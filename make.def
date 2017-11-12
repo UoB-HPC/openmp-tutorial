@@ -1,4 +1,4 @@
-# for the Intel compiler (icc) on Apple OS-X
+# for the Cray compiler (cce)
 # copy to make.def
 CC          = cc
 CLINKER     = $(CC)
