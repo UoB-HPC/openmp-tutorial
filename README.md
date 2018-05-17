@@ -8,7 +8,7 @@ Starting with serial code, the tutorial takes you thorugh parallellising, explor
 * `pi` – A numerical integration program that calculates and approximate value of π.
 * `jac_solv` – A Jacobi solver.
 
-## Usage
+## Usage
 
 To build all the examples:
 
