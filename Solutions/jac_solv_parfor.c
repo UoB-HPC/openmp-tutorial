@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
   int i, j, iters;
   double start_time, elapsed_time;
   TYPE conv, tmp, err, chksum;
-  TYPE *A, *b, *x1, *x2, *xnew, *xold, *xtmp;
+  TYPE *A, *b, *x1, *x2, *xtmp;
 
   // set matrix dimensions and allocate memory for matrices
   if (argc == 2) {
@@ -92,8 +92,6 @@ int main(int argc, char **argv) {
   //
   conv = LARGE;
   iters = 0;
-  xnew = x1;
-  xold = x2;
 
   {
     // note: i am comparing against the convergence sqaured.  This saves a
@@ -102,38 +100,39 @@ int main(int argc, char **argv) {
       {
         iters++;
         conv = 0.0;
-        // alternate vectors
-        xnew = iters%2 ? x2 : x1;
-        xold = iters%2 ? x1 : x2;
       }
 
 #pragma omp parallel for private(i, j)
       for (i = 0; i < Ndim; i++) {
-        xnew[i] = (TYPE)0.0;
+        x2[i] = (TYPE)0.0;
         for (j = 0; j < Ndim; j++) {
           //    if(i!=j)
-          //      xnew[i]+= A[i*Ndim + j]*xold[j];
-          xnew[i] += A[i * Ndim + j] * xold[j] * (i != j);
+          //      x2[i]+= A[i*Ndim + j]*x1[j];
+          x2[i] += A[i * Ndim + j] * x1[j] * (i != j);
         }
-        xnew[i] = (b[i] - xnew[i]) / A[i * Ndim + i];
+        x2[i] = (b[i] - x2[i]) / A[i * Ndim + i];
       }
 //
 // test convergence
 //
 #pragma omp parallel for private(tmp) reduction(+ : conv)
       for (i = 0; i < Ndim; i++) {
-        tmp = xnew[i] - xold[i];
+        tmp = x2[i] - x1[i];
         conv += tmp * tmp;
       }
 #ifdef DEBUG
       printf(" conv = %f \n", (float)conv);
 #endif
+
+      TYPE* tmp = x1;
+      x1 = x2;
+      x2 = tmp;
     }
   }
   conv = sqrt((double)conv);
   elapsed_time = omp_get_wtime() - start_time;
   printf(" Convergence = %g with %d iterations and %f seconds\n", (float)conv,
-         iters, (float)elapsed_time);
+      iters, (float)elapsed_time);
 
   //
   // test answer by multiplying my computed value of x by
@@ -144,20 +143,20 @@ int main(int argc, char **argv) {
   chksum = (TYPE)0.0;
 
   for (i = 0; i < Ndim; i++) {
-    xold[i] = (TYPE)0.0;
+    x1[i] = (TYPE)0.0;
     for (j = 0; j < Ndim; j++)
-      xold[i] += A[i * Ndim + j] * xnew[j];
-    tmp = xold[i] - b[i];
+      x1[i] += A[i * Ndim + j] * x2[j];
+    tmp = x1[i] - b[i];
 #ifdef DEBUG
     printf(" i=%d, diff = %f,  computed b = %f, input b= %f \n", i, (float)tmp,
-           (float)xold[i], (float)b[i]);
+        (float)x1[i], (float)b[i]);
 #endif
-    chksum += xnew[i];
+    chksum += x2[i];
     err += tmp * tmp;
   }
   err = sqrt((double)err);
   printf("jacobi solver: err = %f, solution checksum = %f \n", (float)err,
-         (float)chksum);
+      (float)chksum);
   if (err > TOLERANCE)
     printf("\nWARNING: final solution error > %g\n\n", TOLERANCE);
 

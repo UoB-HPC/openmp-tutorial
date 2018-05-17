@@ -30,6 +30,7 @@
 **
 **  HISTORY: Written by Tim Mattson, Oct 2015
 **           Parallelized by Tim Mattson, Nov 2015
+**           Cleanup by Matt Martineau, May 2018
 */
 
 #include "mm_utils.h" //a library of basic matrix utilities functions
@@ -49,10 +50,9 @@
 
 int main(int argc, char **argv) {
   int Ndim; // A[Ndim][Ndim]
-  int i, j, iters;
   double start_time, elapsed_time;
-  TYPE conv, tmp, err, chksum;
-  TYPE *A, *b, *x1, *x2, *xnew, *xold;
+  TYPE conv, err, chksum;
+  TYPE *A, *b, *xold, *xnew;
 
   // set matrix dimensions and allocate memory for matrices
   if (argc == 2) {
@@ -65,10 +65,10 @@ int main(int argc, char **argv) {
 
   A = (TYPE *)malloc(Ndim * Ndim * sizeof(TYPE));
   b = (TYPE *)malloc(Ndim * sizeof(TYPE));
-  x1 = (TYPE *)malloc(Ndim * sizeof(TYPE));
-  x2 = (TYPE *)malloc(Ndim * sizeof(TYPE));
+  xold = (TYPE *)malloc(Ndim * sizeof(TYPE));
+  xnew = (TYPE *)malloc(Ndim * sizeof(TYPE));
 
-  if (!A || !b || !x1 || !x2) {
+  if (!A || !b || !xold || !xnew) {
     printf("\n memory allocation error\n");
     exit(-1);
   }
@@ -83,9 +83,9 @@ int main(int argc, char **argv) {
   //
   // Initialize x and just give b some non-zero random values
   //
-  for (i = 0; i < Ndim; i++) {
-    x1[i] = (TYPE)0.0;
-    x2[i] = (TYPE)0.0;
+  for (int i = 0; i < Ndim; i++) {
+    xold[i] = (TYPE)0.0;
+    xnew[i] = (TYPE)0.0;
     b[i] = (TYPE)(rand() % 51) / 100.0;
   }
 
@@ -94,21 +94,18 @@ int main(int argc, char **argv) {
   // jacobi iterative solver
   //
   conv = LARGE;
-  iters = 0;
-#pragma omp target data map(tofrom : x1[0 : Ndim], x2[0 : Ndim])               \
-                                map(to : A[0 : Ndim *Ndim], Ndim, b[0 : Ndim])
+  int iters = 0;
+#pragma omp target enter data map(to : xold[0 : Ndim], xnew[0 : Ndim], \
+    A[0 : Ndim *Ndim], b[0 : Ndim])
+
   while ((conv > TOLERANCE) && (iters < MAX_ITERS)) {
     iters++;
 
-    // alternate x vectors
-    xnew = iters % 2 ? x2 : x1;
-    xold = iters % 2 ? x1 : x2;
-
 #pragma omp target
-#pragma omp teams distribute parallel for simd private(j)
-    for (i = 0; i < Ndim; i++) {
+#pragma omp teams distribute parallel for simd
+    for (int i = 0; i < Ndim; i++) {
       xnew[i] = (TYPE)0.0;
-      for (j = 0; j < Ndim; j++) {
+      for (int j = 0; j < Ndim; j++) {
         xnew[i] += A[j * Ndim + i] * xold[j] * (TYPE)(i != j);
       }
       xnew[i] = (b[i] - xnew[i]) / A[i * Ndim + i];
@@ -119,20 +116,25 @@ int main(int argc, char **argv) {
     conv = 0.0;
 
 #pragma omp target map(tofrom : conv)
-    {
-#pragma omp teams distribute parallel for simd private(tmp) reduction(+ : conv)
-      for (i = 0; i < Ndim; i++) {
-        tmp = xnew[i] - xold[i];
+#pragma omp teams distribute parallel for simd reduction(+ : conv)
+      for (int i = 0; i < Ndim; i++) {
+        TYPE tmp = xnew[i] - xold[i];
         conv += tmp * tmp;
       }
-    }
 
     conv = sqrt((double)conv);
 
 #ifdef DEBUG
     printf(" conv = %f \n", (float)conv);
 #endif
+
+    TYPE* tmp = xold;
+    xold = xnew;
+    xnew = tmp;
   }
+
+#pragma omp target exit data map(from : xold[0 : Ndim], xnew[0 : Ndim])
+
   elapsed_time = omp_get_wtime() - start_time;
   printf(" Convergence = %g with %d iterations and %f seconds\n", (float)conv,
          iters, (float)elapsed_time);
@@ -145,11 +147,11 @@ int main(int argc, char **argv) {
   err = (TYPE)0.0;
   chksum = (TYPE)0.0;
 
-  for (i = 0; i < Ndim; i++) {
+  for (int i = 0; i < Ndim; i++) {
     xold[i] = (TYPE)0.0;
-    for (j = 0; j < Ndim; j++)
+    for (int j = 0; j < Ndim; j++)
       xold[i] += A[j * Ndim + i] * xnew[j];
-    tmp = xold[i] - b[i];
+    TYPE tmp = xold[i] - b[i];
 #ifdef DEBUG
     printf(" i=%d, diff = %f,  computed b = %f, input b= %f \n", i, (float)tmp,
            (float)xold[i], (float)b[i]);
@@ -165,6 +167,6 @@ int main(int argc, char **argv) {
 
   free(A);
   free(b);
-  free(x1);
-  free(x2);
+  free(xold);
+  free(xnew);
 }
