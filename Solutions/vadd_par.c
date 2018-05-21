@@ -11,12 +11,12 @@
 int main()
 {
 
-    float a[N], b[N], c[N], res[N],val;
-    int i,err=0;
+    float a[N], b[N], c[N], res[N];
+    int err=0;
 
    // fill the arrays
    #pragma omp parallel for
-   for (i=0; i<N; i++){
+   for (int i=0; i<N; i++){
       a[i] = (float)i;
       b[i] = 2.0*(float)i;
       c[i] = 0.0;
@@ -25,15 +25,15 @@ int main()
 
    // add two vectors
    #pragma omp target
-   #pragma omp teams distribute parallel for simd
-   for (i=0; i<N; i++){
+   #pragma omp teams distribute parallel for
+   for (int i=0; i<N; i++){
       c[i] = a[i] + b[i];
    }
 
    // test results
-   #pragma omp parallel for private(val) reduction(+:err)
-   for(i=0;i<N;i++){
-      val = c[i] - res[i];
+   #pragma omp parallel for reduction(+:err)
+   for(int i=0;i<N;i++){
+      float val = c[i] - res[i];
       val = val*val;
       if(val>TOL) err++;
    }
