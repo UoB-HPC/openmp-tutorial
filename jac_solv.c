@@ -47,10 +47,10 @@
 
 int main(int argc, char **argv) {
   int Ndim; // A[Ndim][Ndim]
-  int i, j, iters;
+  int iters;
   double start_time, elapsed_time;
-  TYPE conv, tmp, err, chksum;
-  TYPE *A, *b, *x1, *x2, *xnew, *xold, *xtmp;
+  TYPE err, chksum;
+  TYPE *A, *b, *xnew, *xold, *xtmp;
 
   // set matrix dimensions and allocate memory for matrices
   if (argc == 2) {
@@ -63,10 +63,10 @@ int main(int argc, char **argv) {
 
   A = (TYPE *)malloc(Ndim * Ndim * sizeof(TYPE));
   b = (TYPE *)malloc(Ndim * sizeof(TYPE));
-  x1 = (TYPE *)malloc(Ndim * sizeof(TYPE));
-  x2 = (TYPE *)malloc(Ndim * sizeof(TYPE));
+  xnew = (TYPE *)malloc(Ndim * sizeof(TYPE));
+  xold = (TYPE *)malloc(Ndim * sizeof(TYPE));
 
-  if (!A || !b || !x1 || !x2) {
+  if (!A || !b || !xold || !xnew) {
     printf("\n memory allocation error\n");
     exit(-1);
   }
@@ -81,9 +81,9 @@ int main(int argc, char **argv) {
   //
   // Initialize x and just give b some non-zero random values
   //
-  for (i = 0; i < Ndim; i++) {
-    x1[i] = (TYPE)0.0;
-    x2[i] = (TYPE)0.0;
+  for (int i = 0; i < Ndim; i++) {
+    xnew[i] = (TYPE)0.0;
+    xold[i] = (TYPE)0.0;
     b[i] = (TYPE)(rand() % 51) / 100.0;
   }
 
@@ -91,20 +91,14 @@ int main(int argc, char **argv) {
   //
   // jacobi iterative solver
   //
-  conv = LARGE;
+  TYPE conv = LARGE;
   iters = 0;
-  xnew = x1;
-  xold = x2;
   while ((conv > TOLERANCE) && (iters < MAX_ITERS)) {
     iters++;
 
-    // alternate vectors
-    xnew = iters%2 ? x2 : x1;
-    xold = iters%2 ? x1 : x2;
-
-    for (i = 0; i < Ndim; i++) {
+    for (int i = 0; i < Ndim; i++) {
       xnew[i] = (TYPE)0.0;
-      for (j = 0; j < Ndim; j++) {
+      for (int j = 0; j < Ndim; j++) {
         if (i != j)
           xnew[i] += A[i * Ndim + j] * xold[j];
       }
@@ -114,14 +108,18 @@ int main(int argc, char **argv) {
     // test convergence
     //
     conv = 0.0;
-    for (i = 0; i < Ndim; i++) {
-      tmp = xnew[i] - xold[i];
+    for (int i = 0; i < Ndim; i++) {
+      TYPE tmp = xnew[i] - xold[i];
       conv += tmp * tmp;
     }
     conv = sqrt((double)conv);
 #ifdef DEBUG
     printf(" conv = %f \n", (float)conv);
 #endif
+
+    TYPE* tmp = xold;
+    xold = xnew;
+    xnew = tmp;
   }
   elapsed_time = omp_get_wtime() - start_time;
   printf(" Convergence = %g with %d iterations and %f seconds\n", (float)conv,
@@ -135,11 +133,11 @@ int main(int argc, char **argv) {
   err = (TYPE)0.0;
   chksum = (TYPE)0.0;
 
-  for (i = 0; i < Ndim; i++) {
+  for (int i = 0; i < Ndim; i++) {
     xold[i] = (TYPE)0.0;
-    for (j = 0; j < Ndim; j++)
+    for (int j = 0; j < Ndim; j++)
       xold[i] += A[i * Ndim + j] * xnew[j];
-    tmp = xold[i] - b[i];
+    TYPE tmp = xold[i] - b[i];
 #ifdef DEBUG
     printf(" i=%d, diff = %f,  computed b = %f, input b= %f \n", i, (float)tmp,
            (float)xold[i], (float)b[i]);
@@ -155,6 +153,6 @@ int main(int argc, char **argv) {
 
   free(A);
   free(b);
-  free(x1);
-  free(x2);
+  free(xold);
+  free(xnew);
 }
