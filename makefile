@@ -6,7 +6,7 @@
 
 include make.def
 
-EXES= pi$(EXE) jac_solv$(EXE) vadd$(EXE)
+EXES= pi$(EXE) jac_solv$(EXE) vadd$(EXE) heat$(EXE)
 
 JAC_OBJS  = jac_solv.$(OBJ) mm_utils.$(OBJ)
 
@@ -16,11 +16,13 @@ jac_solv$(EXE): $(JAC_OBJS) mm_utils.h
 	$(CLINKER) $(CFLAGS) -o jac_solv$(EXE) $(JAC_OBJS) $(LIBS)
 
 pi$(EXE): pi.$(OBJ)
-	$(CLINKER) $(OPTFLAGS) -o pi pi.$(OBJ) $(LIBS)
+	$(CLINKER) $(OPTFLAGS) -o pi$(EXE) pi.$(OBJ) $(LIBS)
 
 vadd$(EXE): vadd.$(OBJ)
-	$(CLINKER) $(OPTFLAGS) -o vadd vadd.$(OBJ) $(LIBS)
+	$(CLINKER) $(OPTFLAGS) -o vadd$(EXE) vadd.$(OBJ) $(LIBS)
 
+heat$(EXE): heat.$(OBJ)
+	$(CLINKER) $(OPTFLAGS) -o heat$(EXE) heat.$(OBJ) $(LIBS)
 
 test: $(EXES)
 	for i in $(EXES); do \
