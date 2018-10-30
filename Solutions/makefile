@@ -7,7 +7,8 @@ include ../make.def
 
 EXES=pi_spmd_final$(EXE) pi_loop$(EXE) vadd_par$(EXE) \
      jac_solv_dat_reg$(EXE) jac_solv_targ$(EXE)  \
-     jac_solv_coal$(EXE) jac_solv_nobr$(EXE)
+     jac_solv_coal$(EXE) jac_solv_nobr$(EXE) \
+     heat_target$(EXE)
      # jac_solv_parfor$(EXE) jac_solv_par_for$(EXE)
 
 JAC_PAR_FOR_OBJS  = jac_solv_par_for.$(OBJ) mm_utils.$(OBJ)
@@ -50,6 +51,9 @@ pi_loop$(EXE): pi_loop.$(OBJ)
 
 vadd_par$(EXE): vadd_par.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o vadd_par$(EXE) vadd_par.$(OBJ) $(LIBS)
+
+heat_target$(EXE): heat_target.$(OBJ)
+	$(CLINKER) $(OPTFLAGS) -o heat_target$(EXE) heat_target.$(OBJ) $(LIBS)
 
 test: $(EXES)
 	for i in $(EXES); do \
