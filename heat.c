@@ -49,33 +49,33 @@ double l2norm(const int n, const double * restrict u, const int nsteps, const do
 // Main function
 int main(int argc, char *argv[]) {
 
-  // Check for the correct number of arguments
-  // Print usage and exits if not correct
-  if (argc != 3) {
-    fprintf(stderr,
-      "Usage: %s n t\n"
-      "n : grid dimension\n"
-      "t : timesteps\n"
-      , argv[0]);
-    exit(EXIT_FAILURE);
-  }
-
   // Start the total program runtime timer
   double start = omp_get_wtime();
 
-  // Set problem size from first argument
-  // Will later form an nxn grid
-  const int n = atoi(argv[1]);
-  if (n < 0) {
-    fprintf(stderr, "Error: n must be positive\n");
-    exit(EXIT_FAILURE);
-  }
+  // Problem size, forms an nxn grid
+  int n = 1000;
 
-  // Set number of timesteps from second argument
-  const int nsteps = atoi(argv[2]);
-  if (nsteps < 0) {
-    fprintf(stderr, "Error: nsteps must be positive\n");
-    exit(EXIT_FAILURE);
+  // Number of timesteps
+  int nsteps = 10;
+
+
+  // Check for the correct number of arguments
+  // Print usage and exits if not correct
+  if (argc == 3) {
+
+    // Set problem size from first argument
+    n = atoi(argv[1]);
+    if (n < 0) {
+      fprintf(stderr, "Error: n must be positive\n");
+      exit(EXIT_FAILURE);
+    }
+
+    // Set number of timesteps from second argument
+    nsteps = atoi(argv[2]);
+    if (nsteps < 0) {
+      fprintf(stderr, "Error: nsteps must be positive\n");
+      exit(EXIT_FAILURE);
+    }
   }
 
 
