@@ -16,7 +16,6 @@ History: Written by Tim Mattson, 11/99.
 #include <omp.h>
 #include <stdio.h>
 #define MIN(a,b) ((a<b)?a:b)
-#define omp_get_num_teams() 4
 static long num_steps = 100000000;
 double step;
 int main() {
