@@ -15,8 +15,6 @@ History: Written by Tim Mattson, 11/99.
 */
 #include <omp.h>
 #include <stdio.h>
-#define MIN(a,b) ((a<b)?a:b)
-#define omp_get_num_teams() 4
 static long num_steps = 100000000;
 double step;
 int main() {
@@ -28,21 +26,10 @@ int main() {
 
   start_time = omp_get_wtime();
 
-#pragma omp target map(sum)
-#pragma omp teams reduction(+:sum)
-{
-  int block_size = num_steps/omp_get_num_teams();
-#pragma omp distribute dist_schedule(static, 1) 
-  for (int ii=0; ii<num_steps; ii+=block_size)
-  {
-     printf("ii=%d\n", ii);
-#pragma omp parallel for private(x) reduction(+:sum)
-  for (int i = ii+1; i <= MIN(ii+block_size, num_steps); i++) {
+  for (i = 1; i <= num_steps; i++) {
     x = (i - 0.5) * step;
     sum = sum + 4.0 / (1.0 + x * x);
   }
-  }
-}
 
   pi = step * sum;
   run_time = omp_get_wtime() - start_time;
