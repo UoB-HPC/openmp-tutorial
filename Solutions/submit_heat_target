@@ -1,0 +1,10 @@
+#PBS -q pascalq
+#PBS -V
+#PBS -joe
+#PBS -lnodes=1:ppn=36
+#PBS -lwalltime=00:02:00
+#PBS -N heat_target
+
+cd $PBS_O_WORKDIR
+
+./heat_target
