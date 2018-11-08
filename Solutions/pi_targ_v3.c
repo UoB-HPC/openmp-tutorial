@@ -35,7 +35,6 @@ int main() {
 #pragma omp distribute dist_schedule(static, 1) 
   for (int ii=0; ii<num_steps; ii+=block_size)
   {
-     printf("ii=%d\n", ii);
 #pragma omp parallel for private(x) reduction(+:sum)
   for (int i = ii+1; i <= MIN(ii+block_size, num_steps); i++) {
     x = (i - 0.5) * step;
