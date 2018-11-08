@@ -15,7 +15,6 @@ History: Written by Tim Mattson, 11/99.
 */
 #include <omp.h>
 #include <stdio.h>
-#include <algorithm>
 static long num_steps = 100000000;
 double step;
 int main() {
