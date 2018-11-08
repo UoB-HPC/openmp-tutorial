@@ -1,0 +1,10 @@
+#PBS -q pascalq
+#PBS -V
+#PBS -joe
+#PBS -lnodes=1:ppn=36
+#PBS -lwalltime=00:02:00
+#PBS -N pi_targ_v1
+
+cd $PBS_O_WORKDIR
+
+./pi_targ_v1
