@@ -1,13 +1,13 @@
-# for the Cray compiler (cce)
+# for g++ compiler on Linux
 # copy to make.def
-CC          = cc
+CC          = g++
 CLINKER     = $(CC)
-OPTFLAGS    = -O3
-LIBS        =
+OPTFLAGS    = -fopenmp -O3 -fpermissive -Drestrict=__restrict__
+LIBS        = -lm
 PRE         = ./
 
 CFLAGS	  = $(OPTFLAGS)
 
 OBJ=o
 EXE=
-RM=rm -f
+RM=rm
