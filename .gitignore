@@ -13,6 +13,10 @@ jac_solv_nobr
 jac_solv_targ
 pi_loop
 pi_spmd_final
+pi_targ_v1
+pi_targ_v2
+pi_targ_v3
+pi_targ_v4
 vadd_par
 heat
 heat_target
