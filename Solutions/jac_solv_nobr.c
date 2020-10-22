@@ -42,7 +42,7 @@
 
 #define TOLERANCE 0.001
 #define DEF_SIZE 1000
-#define MAX_ITERS 5000
+#define MAX_ITERS 100000
 #define LARGE 1000000.0
 
 //#define DEBUG    1     // output a small subset of intermediate values
