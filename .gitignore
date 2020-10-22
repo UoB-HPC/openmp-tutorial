@@ -23,5 +23,6 @@ vadd_heap
 vadd_heap_target
 heat
 heat_map
+heat_map_target
 heat_target
 
