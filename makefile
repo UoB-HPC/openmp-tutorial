@@ -6,7 +6,7 @@
 
 include make.def
 
-EXES= pi$(EXE) jac_solv$(EXE) vadd$(EXE) heat$(EXE)
+EXES= pi$(EXE) jac_solv$(EXE) vadd$(EXE) vadd_head$(EXE) heat$(EXE)
 
 JAC_OBJS  = jac_solv.$(OBJ) mm_utils.$(OBJ)
 
@@ -20,6 +20,9 @@ pi$(EXE): pi.$(OBJ)
 
 vadd$(EXE): vadd.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o vadd$(EXE) vadd.$(OBJ) $(LIBS)
+
+vadd_heap$(EXE): vadd_heap.$(OBJ)
+	$(CLINKER) $(OPTFLAGS) -o vadd_heap$(EXE) vadd_heap.$(OBJ) $(LIBS)
 
 heat$(EXE): heat.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o heat$(EXE) heat.$(OBJ) $(LIBS)
