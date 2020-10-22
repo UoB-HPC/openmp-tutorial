@@ -9,7 +9,7 @@ EXES=pi_spmd_final$(EXE) pi_loop$(EXE) \
      vadd_par$(EXE) vadd_target$(EXE) vadd_heap_target$(EXE) \
      jac_solv_dat_reg$(EXE) jac_solv_targ$(EXE)  \
      jac_solv_coal$(EXE) jac_solv_nobr$(EXE) \
-     heat_map_target$(EXE) heat_target$(EXE) \
+     heat_map_target$(EXE) heat_data_reg$(EXE) heat_target$(EXE)\
      pi_targ_v1$(EXE) pi_targ_v2$(EXE) pi_targ_v3$(EXE) pi_targ_v4$(EXE)
      # jac_solv_parfor$(EXE) jac_solv_par_for$(EXE)
 
