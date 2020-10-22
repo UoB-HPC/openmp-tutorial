@@ -6,7 +6,7 @@
 include ../make.def
 
 EXES=pi_spmd_final$(EXE) pi_loop$(EXE) \
-     vadd_par$(EXE) vadd_target$(EXE) \
+     vadd_par$(EXE) vadd_target$(EXE) vadd_heap_target$(EXE) \
      jac_solv_dat_reg$(EXE) jac_solv_targ$(EXE)  \
      jac_solv_coal$(EXE) jac_solv_nobr$(EXE) \
      heat_target$(EXE) \
@@ -56,6 +56,9 @@ vadd_par$(EXE): vadd_par.$(OBJ)
 
 vadd_target$(EXE): vadd_target.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o vadd_target$(EXE) vadd_target.$(OBJ) $(LIBS)
+
+vadd_heap_target$(EXE): vadd_heap_target.$(OBJ)
+	$(CLINKER) $(OPTFLAGS) -o vadd_heap_target$(EXE) vadd_heap_target.$(OBJ) $(LIBS)
 
 heat_target$(EXE): heat_target.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o heat_target$(EXE) heat_target.$(OBJ) $(LIBS)

@@ -19,6 +19,8 @@ pi_targ_v3
 pi_targ_v4
 vadd_par
 vadd_target
+vadd_heap
+vadd_heap_target
 heat
 heat_target
 
