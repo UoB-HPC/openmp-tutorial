@@ -187,8 +187,8 @@ void initial_value(const int n, const double dx, const double length, double * r
 // Zero the array u
 void zero(const int n, double * restrict u) {
 
-  for (int j = 0; j < n; ++j) {
-    for (int i = 0; i < n; ++i) {
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
       u[i+j*n] = 0.0;
     }
   }
@@ -204,8 +204,8 @@ void solve(const int n, const double alpha, const double dx, const double dt, co
   const double r2 = 1.0 - 4.0*r;
 
   // Loop over the nxn grid
-  for (int j = 0; j < n; ++j) {
-    for (int i = 0; i < n; ++i) {
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
 
       // Update the 5-point stencil, using boundary conditions on the edges of the domain.
       // Boundaries are zero because the MMS solution is zero there.
