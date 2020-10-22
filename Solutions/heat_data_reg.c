@@ -124,12 +124,12 @@ int main(int argc, char *argv[]) {
   initial_value(n, dx, length, u);
   zero(n, u_tmp);
 
+  // Copy data to the device
+  #pragma omp target enter data map(to: u[0:n*n], u_tmp[0:n*n])
+
   //
   // Run through timesteps under the explicit scheme
   //
-
-  // Copy data to the device
-  #pragma omp target enter data map(to: u[0:n*n], u_tmp[0:n*n])
 
   // Start the solve timer
   double tic = omp_get_wtime();
@@ -210,7 +210,7 @@ void solve(const int n, const double alpha, const double dx, const double dt, co
   const double r2 = 1.0 - 4.0*r;
 
   // Loop over the nxn grid
-  #pragma omp target map(tofrom: u[0:n*n], u_tmp[0:n*n])
+  #pragma omp target
   #pragma omp teams distribute parallel for simd collapse(2)
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
