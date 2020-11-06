@@ -1,7 +1,7 @@
-#PBS -q voltaq
+#PBS -q R33256
 #PBS -V
 #PBS -joe
-#PBS -lselect=1:ncpus=40,place=excl
+#PBS -lselect=1:ncpus=36,place=excl
 #PBS -lwalltime=00:02:00
 #PBS -N heat_target_opt
 
