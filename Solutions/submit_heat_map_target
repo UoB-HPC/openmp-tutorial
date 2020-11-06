@@ -3,8 +3,8 @@
 #PBS -joe
 #PBS -lselect=1:ncpus=40,place=excl
 #PBS -lwalltime=00:02:00
-#PBS -N pi_targ_v2
+#PBS -N heat_map_target
 
 cd $PBS_O_WORKDIR
 
-./pi_targ_v2
+./heat_map_target
