@@ -2,7 +2,7 @@
 # copy to make.def
 CC          = cc
 CLINKER     = $(CC)
-OPTFLAGS    = -O3 -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_70
+OPTFLAGS    = -O3 -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_60
 LIBS        =
 PRE         = ./
 
