@@ -66,6 +66,10 @@ heat_map_target$(EXE): heat_map_target.$(OBJ)
 heat_target_opt$(EXE): heat_target_opt.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o heat_target_opt$(EXE) heat_target_opt.$(OBJ) $(LIBS)
 
+heat_data_reg$(EXE): heat_data_reg.$(OBJ)
+	$(CLINKER) $(OPTFLAGS) -o heat_data_reg$(EXE) heat_data_reg.$(OBJ) $(LIBS)
+
+
 test: $(EXES)
 	for i in $(EXES); do \
             $(PRE)$$i; \
