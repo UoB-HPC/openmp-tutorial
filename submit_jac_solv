@@ -1,7 +1,7 @@
-#PBS -q R33315
+#PBS -q voltaq
 #PBS -V
 #PBS -joe
-#PBS -lselect=1:ncpus=1,place=excl
+#PBS -lselect=1:ncpus=1:ngpus=1,place=excl
 #PBS -lwalltime=00:02:00
 #PBS -N jac_solv
 
