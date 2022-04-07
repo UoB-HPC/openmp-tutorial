@@ -27,6 +27,6 @@ qsub submit_heat     # For heat
 ```
 
 ## Publication history
-Versions of this tutorial have been presented at [SC'17](https://sc17.supercomputing.org/presentation/?id=tut127&sess=sess217), [SC'18](https://sc18.supercomputing.org/presentation/?id=tut138&sess=sess245), [SC'19](https://sc19.supercomputing.org/presentation/?id=tut110&sess=sess183), and virtually at [SC'20](https://sc20.supercomputing.org/presentation/?id=tut155&sess=sess237).
+Versions of this tutorial have been presented at [SC'17](https://sc17.supercomputing.org/presentation/?id=tut127&sess=sess217), [SC'18](https://sc18.supercomputing.org/presentation/?id=tut138&sess=sess245), [SC'19](https://sc19.supercomputing.org/presentation/?id=tut110&sess=sess183), and virtually at [SC'20](https://sc20.supercomputing.org/presentation/?id=tut155&sess=sess237) and [SC'21](https://sc21.supercomputing.org/presentation/?id=tut116&sess=sess189).
 A version of this tutorial was presented [UK OpenMP Users' Conference](https://ukopenmpusers.co.uk) in 2018 and 2019.
 
