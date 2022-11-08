@@ -1,4 +1,4 @@
-#PBS -q voltaq
+#PBS -q ampereq
 #PBS -V
 #PBS -joe
 #PBS -lselect=1:ncpus=1:ngpus=1,place=excl

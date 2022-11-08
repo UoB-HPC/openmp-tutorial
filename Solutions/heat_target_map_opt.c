@@ -124,15 +124,13 @@ int main(int argc, char *argv[]) {
   initial_value(n, dx, length, u);
   zero(n, u_tmp);
 
-  // Copy data to the device
-  #pragma omp target enter data map(to: u[0:n*n], u_tmp[0:n*n])
-
   //
   // Run through timesteps under the explicit scheme
   //
 
   // Start the solve timer
   double tic = omp_get_wtime();
+  #pragma omp target enter data map(to: u[0:n*n], u_tmp[0:n*n])
   for (int t = 0; t < nsteps; ++t) {
 
     // Call the solve kernel
@@ -145,11 +143,9 @@ int main(int argc, char *argv[]) {
     u = u_tmp;
     u_tmp = tmp;
   }
+  #pragma omp target exit data map(from: u[0:n*n])
   // Stop solve timer
   double toc = omp_get_wtime();
-
-  // Copy data from the device
-  #pragma omp target exit data map(from: u[0:n*n])
 
   //
   // Check the L2-norm of the computed solution
@@ -186,19 +182,16 @@ void initial_value(const int n, const double dx, const double length, double * r
     }
     y += dx; // Physical y position
   }
-
 }
 
 
 // Zero the array u
 void zero(const int n, double * restrict u) {
-
   for (int j = 0; j < n; ++j) {
     for (int i = 0; i < n; ++i) {
       u[i+j*n] = 0.0;
     }
   }
-
 }
 
 
@@ -210,7 +203,8 @@ void solve(const int n, const double alpha, const double dx, const double dt, co
   const double r2 = 1.0 - 4.0*r;
 
   // Loop over the nxn grid
-  #pragma omp target teams distribute parallel for simd collapse(2)
+  #pragma omp target
+  #pragma omp loop collapse(2)
   for (int j = 0; j < n; ++j) {
     for (int i = 0; i < n; ++i) {
 

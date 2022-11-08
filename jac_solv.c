@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
   int iters;
   double start_time, elapsed_time;
   TYPE err, chksum;
-  TYPE *A, *b, *xnew, *xold, *xtmp;
+  TYPE *A, *b, *xnew, *xold;
 
   // set matrix dimensions and allocate memory for matrices
   if (argc == 2) {
