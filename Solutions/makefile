@@ -9,7 +9,7 @@ EXES=pi_spmd_final$(EXE) pi_loop$(EXE) \
      vadd_par$(EXE) vadd_target$(EXE) vadd_heap_target$(EXE) \
      jac_solv_dat_reg$(EXE) jac_solv_targ$(EXE)  \
      jac_solv_coal$(EXE) jac_solv_nobr$(EXE) \
-     heat_map_target$(EXE) heat_data_reg$(EXE) heat_target_opt$(EXE)\
+     heat_target$(EXE) heat_data_reg$(EXE) heat_target_map$(EXE) heat_target_map_opt$(EXE)\
      pi_targ_v1$(EXE) pi_targ_v2$(EXE) pi_targ_v3$(EXE) pi_targ_v4$(EXE)
      # jac_solv_parfor$(EXE) jac_solv_par_for$(EXE)
 
@@ -60,11 +60,14 @@ vadd_target$(EXE): vadd_target.$(OBJ)
 vadd_heap_target$(EXE): vadd_heap_target.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o vadd_heap_target$(EXE) vadd_heap_target.$(OBJ) $(LIBS)
 
-heat_map_target$(EXE): heat_map_target.$(OBJ)
-	$(CLINKER) $(OPTFLAGS) -o heat_map_target$(EXE) heat_map_target.$(OBJ) $(LIBS)
+heat_target$(EXE): heat_target.$(OBJ)
+	$(CLINKER) $(OPTFLAGS) -o heat_target$(EXE) heat_target.$(OBJ) $(LIBS)
 
-heat_target_opt$(EXE): heat_target_opt.$(OBJ)
-	$(CLINKER) $(OPTFLAGS) -o heat_target_opt$(EXE) heat_target_opt.$(OBJ) $(LIBS)
+heat_target_map$(EXE): heat_target_map.$(OBJ)
+	$(CLINKER) $(OPTFLAGS) -o heat_target_map$(EXE) heat_target_map.$(OBJ) $(LIBS)
+
+heat_target_map_opt$(EXE): heat_target_map_opt.$(OBJ)
+	$(CLINKER) $(OPTFLAGS) -o heat_target_map_opt$(EXE) heat_target_map_opt.$(OBJ) $(LIBS)
 
 heat_data_reg$(EXE): heat_data_reg.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o heat_data_reg$(EXE) heat_data_reg.$(OBJ) $(LIBS)
