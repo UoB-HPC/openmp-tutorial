@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
   int Ndim; // A[Ndim][Ndim]
   double start_time, elapsed_time;
   TYPE conv, err, chksum;
-  TYPE *A, *b, *xold, *xnew, *xtmp;
+  TYPE *A, *b, *xold, *xnew;
 
   // set matrix dimensions and allocate memory for matrices
   if (argc == 2) {

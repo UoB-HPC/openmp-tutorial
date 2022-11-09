@@ -53,7 +53,7 @@ int main() {
   int i, j;
   double pi, full_sum = 0.0;
   double start_time, run_time;
-  double sum[MAX_THREADS];
+  // double sum[MAX_THREADS];
 
   step = 1.0 / (double)num_steps;
 

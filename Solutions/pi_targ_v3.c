@@ -20,7 +20,6 @@ History: Written by Tim Mattson, 11/99.
 static long num_steps = 100000000;
 double step;
 int main() {
-  int i;
   double x, pi, sum = 0.0;
   double start_time, run_time;
 

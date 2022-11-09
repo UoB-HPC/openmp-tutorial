@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <omp.h>
 #define N 10000000
 #define TOL  0.0000001
@@ -11,10 +12,10 @@
 int main()
 {
 
-    float *a   = malloc(sizeof(float) * N);
-    float *b   = malloc(sizeof(float) * N);
-    float *c   = malloc(sizeof(float) * N);
-    float *res = malloc(sizeof(float) * N);
+    float *a   = (float *)malloc(sizeof(float) * N);
+    float *b   = (float *)malloc(sizeof(float) * N);
+    float *c   = (float *)malloc(sizeof(float) * N);
+    float *res = (float *)malloc(sizeof(float) * N);
     int err=0;
 
     double init_time, compute_time, test_time;
