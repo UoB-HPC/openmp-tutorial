@@ -1,4 +1,4 @@
-#PBS -q ampereq
+#PBS -q R17307
 #PBS -V
 #PBS -joe
 #PBS -lselect=1:ncpus=1:ngpus=1,place=excl
