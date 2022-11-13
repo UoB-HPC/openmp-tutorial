@@ -1,10 +1,10 @@
 #PBS -q R17307
 #PBS -V
 #PBS -joe
-#PBS -lselect=1:ncpus=1:ngpus=1,place=excl
+#PBS -lselect=1:ncpus=1:ngpus=1
 #PBS -lwalltime=00:02:00
-#PBS -N heat_map_target
+#PBS -N heat_target_map
 
 cd $PBS_O_WORKDIR
 
-./heat_map_target
+./heat_map_target 8000 50
