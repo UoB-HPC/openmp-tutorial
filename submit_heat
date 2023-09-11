@@ -3,6 +3,7 @@
 #SBATCH --nodes 1
 #SBATCH --time 00:02:00
 #SBATCH --job-name heat
+#SBATCH --output heat-%j.out
 
 cd $SLURM_SUBMIT_DIR
 
