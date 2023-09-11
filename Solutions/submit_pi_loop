@@ -1,10 +1,10 @@
-#PBS -q R17599
-#PBS -V
-#PBS -joe
-#PBS -lselect=1:ncpus=1:ngpus=1,place=excl
-#PBS -lwalltime=00:02:00
-#PBS -N pi_loop
+#!/bin/bash
+#SBATCH --partition queue0
+#SBATCH --nodes 1
+#SBATCH --time 00:02:00
+#SBATCH --job-name pi_loop
+#SBATCH --output pi_loop-%j.out
 
-cd $PBS_O_WORKDIR
+cd $SLURM_SUBMIT_DIR
 
 ./pi_loop

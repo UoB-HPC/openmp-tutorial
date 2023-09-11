@@ -1,10 +1,10 @@
-#PBS -q R17599
-#PBS -V
-#PBS -joe
-#PBS -lselect=1:ncpus=1:ngpus=1
-#PBS -lwalltime=00:02:00
-#PBS -N heat_target
+#!/bin/bash
+#SBATCH --partition queue0
+#SBATCH --nodes 1
+#SBATCH --time 00:02:00
+#SBATCH --job-name heat_target
+#SBATCH --output heat_target-%j.out
 
-cd $PBS_O_WORKDIR
+cd $SLURM_SUBMIT_DIR
 
 ./heat_target 8000 50
