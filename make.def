@@ -3,7 +3,7 @@
 
 CC          = nvc
 CLINKER     = $(CC)
-OPTFLAGS    = -fast -mp=gpu 
+OPTFLAGS    = -fast -mp=gpu -gpu=cc75
 LIBS        =
 PRE         = ./
 
