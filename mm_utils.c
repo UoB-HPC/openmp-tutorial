@@ -170,36 +170,10 @@ void init_diag_dom_matrix(int Ndim, TYPE *A) {
     *(A + i * Ndim + i) += sum;
   }
 }
-
 //=========================================================
 // Iteratiave solver test matrix generator.  This one is
 // freindly to the Jacobi solver
 //=========================================================
-void init_colmaj_diag_dom_near_identity_matrix(int Ndim, TYPE *A) {
-  int i, j;
-  TYPE sum;
-
-  //
-  // Create a random, diagonally dominant matrix.  For
-  // a diagonally dominant matrix, the diagonal element
-  // of each row is great than the sum of the other
-  // elements in the row.  Then scale the matrix so the
-  // result is near the identiy matrix.
-  for (i = 0; i < Ndim; i++) {
-    sum = (TYPE)0.0;
-    for (j = 0; j < Ndim; j++) {
-      *(A + j * Ndim + i) = (rand() % 23) / (TYPE)1000.0;
-      sum += *(A + j * Ndim + i);
-    }
-    *(A + i * Ndim + i) += sum;
-
-    // scale the row so the final matrix is almost an identity matrix;wq
-    for (j = 0; j < Ndim; j++)
-      *(A + j * Ndim + i) /= sum;
-  }
-}
-//===========================================================
-
 void init_diag_dom_near_identity_matrix(int Ndim, TYPE *A) {
 
   int i, j;
@@ -222,6 +196,30 @@ void init_diag_dom_near_identity_matrix(int Ndim, TYPE *A) {
     // scale the row so the final matrix is almost an identity matrix;wq
     for (j = 0; j < Ndim; j++)
       *(A + i * Ndim + j) /= sum;
+  }
+}
+void init_diag_dom_near_identity_matrix_colmaj(int Ndim, TYPE *A) {
+
+  int i, j;
+  TYPE sum;
+
+  //
+  // Create a random, diagonally dominant matrix.  For
+  // a diagonally dominant matrix, the diagonal element
+  // of each row is great than the sum of the other
+  // elements in the row.  Then scale the matrix so the
+  // result is near the identiy matrix.
+  for (i = 0; i < Ndim; i++) {
+    sum = (TYPE)0.0;
+    for (j = 0; j < Ndim; j++) {
+      *(A + j * Ndim + i) = (rand() % 23) / (TYPE)1000.0;
+      sum += *(A + j * Ndim + i);
+    }
+    *(A + i * Ndim + i) += sum;
+
+    // scale the row so the final matrix is almost an identity matrix;wq
+    for (j = 0; j < Ndim; j++)
+      *(A + j * Ndim + i) /= sum;
   }
 }
 //===========================================================

@@ -6,7 +6,7 @@
 
 include make.def
 
-EXES= pi$(EXE) jac_solv$(EXE) vadd$(EXE) vadd_heap$(EXE) heat$(EXE) heat_map$(EXE)
+EXES= pi$(EXE) jac_solv$(EXE) vadd$(EXE) vadd_heap$(EXE) heat$(EXE) heat_map$(EXE) mm_testbed$(EXE)
 
 JAC_OBJS  = jac_solv.$(OBJ) mm_utils.$(OBJ)
 
@@ -29,6 +29,9 @@ heat$(EXE): heat.$(OBJ)
 
 heat_map$(EXE): heat_map.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o heat_map$(EXE) heat_map.$(OBJ) $(LIBS)
+
+mm_testbed$(EXE): mm_gpu.$(OBJ) mm_testbed.$(OBJ) mm_tst_cases.$(OBJ) mm_utils.$(OBJ)
+	$(CC) $(OPTFLAGS) -o mm_testbed$(EXE) $^ $(LIBS)
 
 test: $(EXES)
 	for i in $(EXES); do \
