@@ -10,7 +10,8 @@ EXES=pi_spmd_final$(EXE) pi_loop$(EXE) \
      jac_solv_dat_reg$(EXE) jac_solv_targ$(EXE)  \
      jac_solv_coal$(EXE) jac_solv_nobr$(EXE) \
      heat_target$(EXE) heat_data_reg$(EXE) heat_target_map$(EXE) heat_target_map_opt$(EXE)\
-     pi_targ_v1$(EXE) pi_targ_v2$(EXE) pi_targ_v3$(EXE) pi_targ_v4$(EXE)
+     pi_targ_v1$(EXE) pi_targ_v2$(EXE) pi_targ_v3$(EXE) pi_targ_v4$(EXE) \
+     mm_testbed$(EXE)
      # jac_solv_parfor$(EXE) jac_solv_par_for$(EXE)
 
 JAC_PAR_FOR_OBJS  = jac_solv_par_for.$(OBJ) mm_utils.$(OBJ)
@@ -72,6 +73,8 @@ heat_target_map_opt$(EXE): heat_target_map_opt.$(OBJ)
 heat_data_reg$(EXE): heat_data_reg.$(OBJ)
 	$(CLINKER) $(OPTFLAGS) -o heat_data_reg$(EXE) heat_data_reg.$(OBJ) $(LIBS)
 
+mm_testbed$(EXE): mm_gpu_block.$(OBJ) mm_gpu.$(OBJ) mm_testbed.$(OBJ) mm_tst_cases.$(OBJ) mm_utils.$(OBJ)
+	$(CC) $(OPTFLAGS) -o mm_testbed$(EXE) -DUSE_ALLOCATE=1 $^ $(LIBS)
 
 test: $(EXES)
 	for i in $(EXES); do \
