@@ -3,7 +3,7 @@
 
 CC          = clang
 CLINKER     = $(CC)
-OPTFLAGS    = -O3 -fopenmp --offload-arch=sm_75
+OPTFLAGS    = -O3 -fopenmp --offload-arch=sm_75 -DUSE_ALLOCATE=1
 LIBS        = 
 PRE         = ./
 
