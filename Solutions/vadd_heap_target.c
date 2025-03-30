@@ -34,7 +34,7 @@ int main()
    compute_time  = -omp_get_wtime();
 
    // add two vectors
-   #pragma omp target
+   #pragma omp target map(to: a[0:N], b[0:N]) map(from: c[0:N])
    #pragma omp loop
    for (int i=0; i<N; i++){
       c[i] = a[i] + b[i];
